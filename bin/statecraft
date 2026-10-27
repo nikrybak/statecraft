@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use Statecraft\Console\Application;
+
+// Installed as a dependency the autoloader sits three levels up; in this repository, one.
+$autoloaders = [__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php'];
+foreach ($autoloaders as $autoloader) {
+    if (is_file($autoloader)) {
+        require $autoloader;
+        break;
+    }
+}
+
+if (!class_exists(Application::class)) {
+    fwrite(STDERR, "Cannot find the Composer autoloader; run composer install first.\n");
+    exit(1);
+}
+
+exit((new Application(STDOUT, STDERR))->run(array_values(array_slice($argv, 1))));
