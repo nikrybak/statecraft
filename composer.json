@@ -1,0 +1,80 @@
+{
+    "name": "nikrybak/statecraft",
+    "description": "Finite state machines and Petri-net style workflows for PHP 8.3+, defined with attributes or a fluent builder, with guards, PSR-14 events, audit trail and diagram export.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "state machine",
+        "finite state machine",
+        "fsm",
+        "workflow",
+        "petri net",
+        "state",
+        "transition",
+        "audit trail",
+        "mermaid",
+        "graphviz",
+        "psr-14"
+    ],
+    "authors": [
+        {
+            "name": "Nikita Rybak",
+            "email": "nrybak200x@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "psr/container": "^2.0",
+        "psr/event-dispatcher": "^1.0"
+    },
+    "require-dev": {
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*",
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "infection/infection": ">=0.29",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpunit/phpunit": "^11.5"
+    },
+    "suggest": {
+        "ext-pdo": "Required by PdoAuditTrail to persist the transition history",
+        "graphviz": "Install the dot binary to render the exported DOT files to SVG or PNG",
+        "symfony/event-dispatcher": "Any PSR-14 dispatcher works; this one is a common choice for listening to transition events",
+        "php-di/php-di": "Any PSR-11 container can supply guard services referenced by id from attributes"
+    },
+    "autoload": {
+        "psr-4": {
+            "Statecraft\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Statecraft\\Tests\\": "tests/",
+            "Statecraft\\Examples\\": "examples/"
+        }
+    },
+    "bin": [
+        "bin/statecraft"
+    ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "infection/extension-installer": true
+        }
+    },
+    "scripts": {
+        "cs": "php-cs-fixer fix --dry-run --diff",
+        "cs:fix": "php-cs-fixer fix",
+        "phpstan": "phpstan analyse --memory-limit=1G",
+        "psalm": "psalm --no-cache",
+        "test": "phpunit",
+        "infection": "infection --threads=max --min-msi=80",
+        "check": [
+            "@cs",
+            "@phpstan",
+            "@test"
+        ]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
