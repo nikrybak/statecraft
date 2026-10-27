@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Statecraft\Tests\Unit\Definition;
 
+use ArrayIterator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -239,6 +240,6 @@ final class DefinitionTest extends TestCase
         self::assertSame('Monday', PlaceName::of(\Statecraft\Tests\Fixtures\Weekday::Monday));
         self::assertSame(['new', 'paid'], PlaceName::list([OrderStatus::New, 'paid', 'new']));
         self::assertSame(['new'], PlaceName::list(OrderStatus::New));
-        self::assertSame(['a', 'b'], PlaceName::list(new \ArrayIterator(['a', 'b'])));
+        self::assertSame(['a', 'b'], PlaceName::list(new ArrayIterator(['a', 'b'])));
     }
 }

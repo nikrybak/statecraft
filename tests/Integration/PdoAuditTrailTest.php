@@ -20,6 +20,7 @@ use Statecraft\Machine;
 use Statecraft\Marking\PropertyMarkingStore;
 use Statecraft\Tests\Fixtures\Order;
 use Statecraft\Tests\Fixtures\OrderStatus;
+use stdClass;
 
 #[CoversClass(PdoAuditTrail::class)]
 #[CoversClass(Migrations::class)]
@@ -132,6 +133,6 @@ final class PdoAuditTrailTest extends TestCase
 
         $this->expectException(AuditTrailError::class);
         $this->expectExceptionMessage('Cannot determine the id of stdClass');
-        $resolver->idOf(new \stdClass());
+        $resolver->idOf(new stdClass());
     }
 }

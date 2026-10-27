@@ -115,7 +115,7 @@ final class MachineTest extends TestCase
             'event:TransitionCompleted',
         ], $this->events->log);
 
-        $completed = $this->events->events[1];
+        $completed = $this->events->at(1);
         self::assertInstanceOf(TransitionCompleted::class, $completed);
         self::assertSame('order', $completed->machine());
         self::assertSame('pay', $completed->transition()->name);
@@ -149,10 +149,10 @@ final class MachineTest extends TestCase
         }
 
         self::assertSame(['event:GuardFailed', 'event:TransitionBlocked'], $this->events->log);
-        $guardFailed = $this->events->events[0];
+        $guardFailed = $this->events->at(0);
         self::assertInstanceOf(GuardFailed::class, $guardFailed);
         self::assertSame('order amount must be positive', $guardFailed->reason());
-        $blocked = $this->events->events[1];
+        $blocked = $this->events->at(1);
         self::assertInstanceOf(TransitionBlocked::class, $blocked);
         self::assertCount(1, $blocked->blockers);
         self::assertNull($order->status);

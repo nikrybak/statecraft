@@ -73,6 +73,11 @@ final class MarkingStoreTest extends TestCase
             {
                 return $this->state;
             }
+
+            public function reset(string $state): void
+            {
+                $this->state = $state;
+            }
         };
         self::assertTrue($store->read($definition, $subject)->isEmpty());
         $store->write($definition, $subject, new Marking('open'));
@@ -199,7 +204,7 @@ final class MarkingStoreTest extends TestCase
 
             public function setState(): void {}
 
-            private function hidden(): string
+            protected function hidden(): string
             {
                 return 'open';
             }

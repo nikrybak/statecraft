@@ -7,6 +7,7 @@ namespace Statecraft\Definition;
 use Closure;
 use Statecraft\Exception\InvalidDefinition;
 use Statecraft\Guard\Guard;
+use Statecraft\Guard\GuardResult;
 use Statecraft\TransitionContext;
 use UnitEnum;
 
@@ -83,7 +84,7 @@ final class DefinitionBuilder
     /**
      * @param string|UnitEnum|iterable<string|UnitEnum>            $from
      * @param string|UnitEnum|iterable<string|UnitEnum>            $to
-     * @param Guard|(Closure(TransitionContext): bool)|string|null $guard
+     * @param Guard|(Closure(TransitionContext): (bool|GuardResult))|string|null $guard
      * @param array<string, mixed>                                 $metadata
      */
     public function transition(

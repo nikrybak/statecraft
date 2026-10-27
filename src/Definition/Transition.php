@@ -6,6 +6,7 @@ namespace Statecraft\Definition;
 
 use Closure;
 use Statecraft\Guard\Guard;
+use Statecraft\Guard\GuardResult;
 use Statecraft\TransitionContext;
 
 final readonly class Transition
@@ -13,7 +14,7 @@ final readonly class Transition
     /**
      * @param list<string>                                   $froms
      * @param list<string>                                   $tos
-     * @param Guard|(Closure(TransitionContext): bool)|string|null $guard a Guard, a closure, or a class name / container id of a Guard
+     * @param Guard|(Closure(TransitionContext): (bool|GuardResult))|string|null $guard a Guard, a closure, or a class name / container id of a Guard
      * @param array<string, mixed>                           $metadata
      */
     public function __construct(

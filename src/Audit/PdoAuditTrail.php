@@ -83,7 +83,7 @@ final readonly class PdoAuditTrail implements AuditTrail
         try {
             $statement = $this->pdo->prepare($sql);
             if ($statement === false || !$statement->execute($parameters)) {
-                throw new AuditTrailError(\sprintf('Audit query failed: %s', implode(' ', array_map(strval(...), $this->pdo->errorInfo()))));
+                throw new AuditTrailError(\sprintf('Audit query failed: %s', implode(' ', array_map(static fn(mixed $v): string => \is_scalar($v) ? (string) $v : '', $this->pdo->errorInfo()))));
             }
         } catch (PDOException $e) {
             throw new AuditTrailError(\sprintf('Audit query failed: %s', $e->getMessage()), 0, $e);
