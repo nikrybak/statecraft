@@ -33,10 +33,8 @@ final class DumperTest extends TestCase
                 new --> paid: pay
                 paid --> shipped: ship
                 shipped --> delivered: deliver
-                state cancel_join <<join>>
-                new --> cancel_join
-                paid --> cancel_join
-                cancel_join --> cancelled: cancel
+                new --> cancelled: cancel
+                paid --> cancelled: cancel
                 delivered --> [*]
                 cancelled --> [*]
                 classDef current fill:#fde68a,stroke:#b45309,stroke-width:2px

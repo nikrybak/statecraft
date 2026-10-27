@@ -34,7 +34,7 @@ final class MermaidDumper implements Dumper
         }
 
         foreach ($definition->transitions() as $transition) {
-            array_push($lines, ...$this->transition($transition));
+            array_push($lines, ...$this->transition($transition, $definition->isStateMachine()));
         }
 
         foreach ($definition->finalPlaces() as $final) {
@@ -57,14 +57,15 @@ final class MermaidDumper implements Dumper
     /**
      * @return list<string>
      */
-    private function transition(Transition $transition): array
+    private function transition(Transition $transition, bool $isStateMachine): array
     {
         $label = $this->text($transition->name);
         $froms = array_map($this->id(...), $transition->froms);
         $tos = array_map($this->id(...), $transition->tos);
 
-        if (\count($froms) === 1 && \count($tos) === 1) {
-            return [\sprintf('    %s --> %s: %s', $froms[0], $tos[0], $label)];
+        // In a state machine several sources mean "from any of them", so each is its own edge.
+        if ($isStateMachine || (\count($froms) === 1 && \count($tos) === 1)) {
+            return array_map(static fn(string $from): string => \sprintf('    %s --> %s: %s', $from, $tos[0], $label), $froms);
         }
 
         $lines = [];
